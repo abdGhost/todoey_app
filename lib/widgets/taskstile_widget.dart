@@ -1,36 +1,30 @@
 import 'package:flutter/material.dart';
 
 class TasksTile extends StatelessWidget {
-  final bool isCheckMain;
-  final String taskTitle;
+  final bool? isCheckMain;
+  final String? taskTitle;
+  final void Function(bool?)? callBackCheckBox;
 
-  TasksTile(
+  TasksTile({
     this.isCheckMain,
     this.taskTitle,
-  );
+    this.callBackCheckBox,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(
-        taskTitle,
+        taskTitle!,
         style: TextStyle(
-          decoration: isCheckMain ? TextDecoration.lineThrough : null,
+          decoration: isCheckMain! ? TextDecoration.lineThrough : null,
         ),
       ),
       trailing: Checkbox(
         value: isCheckMain,
-        onChanged: (bool? newValue) {
-          print(newValue);
-        },
+        onChanged: callBackCheckBox,
         // onChanged: toggleCheckBoxState,
       ),
     );
   }
 }
-
-// (bool? isCheck) {
-// setState(() {
-// isCheckMain = isCheck!;
-// });
-// },

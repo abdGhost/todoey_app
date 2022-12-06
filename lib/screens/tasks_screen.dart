@@ -1,10 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:todoey_app/screens/add_task_screen.dart';
 
+import '../models/task.dart';
 import '../widgets/taskslist_widget.dart';
 
-class TasksScreen extends StatelessWidget {
-  const TasksScreen({Key? key}) : super(key: key);
+class TasksScreen extends StatefulWidget {
+  List<Task> tasks = [
+    Task(name: 'Buy Milk', isDone: false),
+    Task(name: 'Buy Breed', isDone: false),
+    Task(name: 'Buy Veg', isDone: false)
+  ];
+
+  @override
+  State<TasksScreen> createState() => _TasksScreenState();
+}
+
+class _TasksScreenState extends State<TasksScreen> {
+  List<Task> taskList = [
+    Task(name: 'Buy Milk', isDone: false),
+    Task(name: 'Buy Breed', isDone: false),
+    Task(name: 'Buy Veg', isDone: false)
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +81,7 @@ class TasksScreen extends StatelessWidget {
                   topRight: Radius.circular(30),
                 ),
               ),
-              child: TasksList(),
+              child: TasksList(taskList),
             ),
           ),
         ],
