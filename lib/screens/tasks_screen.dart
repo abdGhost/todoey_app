@@ -1,23 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey_app/models/task_data.dart';
 import 'package:todoey_app/screens/add_task_screen.dart';
 
-import '../models/task.dart';
 import '../widgets/taskslist_widget.dart';
 
-class TasksScreen extends StatefulWidget {
-  List<Task> tasks = [
-    Task(name: 'Buy Milk', isDone: false),
-    Task(name: 'Buy Breed', isDone: false),
-    Task(name: 'Buy Veg', isDone: false)
-  ];
-
-  String? newTaskTitle;
-
-  @override
-  State<TasksScreen> createState() => _TasksScreenState();
-}
-
-class _TasksScreenState extends State<TasksScreen> {
+class TasksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,8 +22,8 @@ class _TasksScreenState extends State<TasksScreen> {
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                CircleAvatar(
+              children: [
+                const CircleAvatar(
                   backgroundColor: Colors.white,
                   radius: 30,
                   child: Icon(
@@ -44,10 +32,10 @@ class _TasksScreenState extends State<TasksScreen> {
                     color: Colors.lightBlueAccent,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   'Todo',
                   style: TextStyle(
                     fontSize: 50,
@@ -55,12 +43,12 @@ class _TasksScreenState extends State<TasksScreen> {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Text(
-                  '2 Task',
-                  style: TextStyle(
+                  '${Provider.of<TaskData>(context).taskCount} Task',
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 18,
                   ),
@@ -77,7 +65,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   topRight: Radius.circular(30),
                 ),
               ),
-              child: TasksList(taskList),
+              child: TasksList(),
             ),
           ),
         ],
@@ -88,9 +76,9 @@ class _TasksScreenState extends State<TasksScreen> {
             context: context,
             builder: (context) => AddTaskScreen(
               (taskTitle) {
-                setState(() {
-                  taskList.add(Task(name: taskTitle, isDone: false));
-                });
+                // setState(() {
+                //   taskList.add(Task(name: taskTitle, isDone: false));
+                // });
               },
             ),
           );
