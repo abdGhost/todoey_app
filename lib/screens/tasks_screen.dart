@@ -11,17 +11,13 @@ class TasksScreen extends StatefulWidget {
     Task(name: 'Buy Veg', isDone: false)
   ];
 
+  String? newTaskTitle;
+
   @override
   State<TasksScreen> createState() => _TasksScreenState();
 }
 
 class _TasksScreenState extends State<TasksScreen> {
-  List<Task> taskList = [
-    Task(name: 'Buy Milk', isDone: false),
-    Task(name: 'Buy Breed', isDone: false),
-    Task(name: 'Buy Veg', isDone: false)
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,8 +86,15 @@ class _TasksScreenState extends State<TasksScreen> {
         onPressed: () {
           showModalBottomSheet(
             context: context,
-            builder: (context) => const AddTaskScreen(),
+            builder: (context) => AddTaskScreen(
+              (taskTitle) {
+                setState(() {
+                  taskList.add(Task(name: taskTitle, isDone: false));
+                });
+              },
+            ),
           );
+          Navigator.pop(context);
         },
         backgroundColor: Colors.lightBlueAccent,
         child: const Icon(

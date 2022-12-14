@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 
-class AddTaskScreen extends StatefulWidget {
-  const AddTaskScreen({Key? key}) : super(key: key);
+class AddTaskScreen extends StatelessWidget {
+  Function? addtaskCallBack;
+  AddTaskScreen(this.addtaskCallBack);
 
-  @override
-  State<AddTaskScreen> createState() => _AddTaskScreenState();
-}
-
-class _AddTaskScreenState extends State<AddTaskScreen> {
   @override
   Widget build(BuildContext context) {
+    String? newTaskTitle;
+
     return Container(
       color: const Color(0xff757575),
       child: Container(
@@ -32,13 +30,17 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 fontSize: 30,
               ),
             ),
-            const TextField(
+            TextField(
               autofocus: true,
               textAlign: TextAlign.center,
+              onChanged: (value) {
+                newTaskTitle = value;
+              },
             ),
             ElevatedButton(
-              onPressed: () {},
-              child: Text('ADD'),
+              onPressed: () {
+                addtaskCallBack!(newTaskTitle);
+              },
               style: ButtonStyle(
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   const RoundedRectangleBorder(
@@ -47,6 +49,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   ),
                 ),
               ),
+              child: const Text('ADD'),
             )
           ],
         ),
